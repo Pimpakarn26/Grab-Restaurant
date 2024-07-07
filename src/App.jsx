@@ -1,6 +1,6 @@
 import "./App.css";
 import Search from "./components/Search";
-import Restaurant from "./components/Restaurant";
+import Restaurants from "./components/Restaurants";
 import Hearder from "./components/Hearder";
 
 function App() {
