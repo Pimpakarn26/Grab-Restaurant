@@ -1,92 +1,77 @@
-import React from "react";
-import { useState } from "react";
+//import React from 'react'
+import { useState } from 'react'
 
 const Add = () => {
-    const [restaurants, setRestaurants] = useState({
-        title: "",
-        type: "",
-        img: "",
-    });
+  const [restaurant, setRestaurant] =useState({
+    title:"",
+    type:"",
+    img:"",
+  });
+  const handleChange =(e) =>{
+    const {name, value} = e.target;
+    setRestaurant({...restaurant,[name]:value})
+  }
+  const handSubmit = async () =>{
+    try {
+      const response = await fetch("http://localhost:5000/restaurants/",{
+        method:"POST",
+        body: JSON.stringify(restaurant),
+      });
+      if(response.ok){
+        alert("Restaurant added successfully!");
+        setRestaurant({
+          title: "",
+          type: "",
+          img: "",
+        });
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
+  return (
+    <div className="container mx-auto">
+      <div>
+        
+      </div>
+      <div className="space-y-2">
+        <label className="input input-bordered flex items-center gap-2">
+          Title
+          <input
+            type="text"
+            className="grow"
+            placeholder="Restaurant Name"
+            name="title"
+            onChange={handleChange}
+            value={restaurant.title}
+          />
+        </label>
+        <label className="input input-bordered flex items-center gap-2">
+          Type
+          <input
+            type="text"
+            className="grow"
+            placeholder="Restaurant Name"
+            name="type"
+            onChange={handleChange}
+            value={restaurant.type}
+          />
+        </label>
+        <label className="input input-bordered flex items-center gap-2">
+          img
+          <input
+            type="text"
+            className="grow"
+            placeholder="Restaurant Name"
+            name="img"
+            onChange={handleChange}
+            value={restaurant.img}
+          />
+        </label>
+        <button className="btn btn-outline btn-error">Add Restaurant</button>
+      </div>
+    </div>
+  );
+}
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setRestaurants({ ...restaurants, [name]: value });
-      };
-    
-      const handSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        try {
-          const response = await fetch("http://localhost:3000/restaurants", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(restaurants),
-          });
-          if (response.ok) {
-            alert("Restaurant added successfully");
-            setRestaurants({ title: "", type: "", img: "" });
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      };
-    
-      return (
-        <div className="container mx-auto p-4">
-          <div>
-            <h1 className="text-2xl text-center mb-4">Add Restaurant</h1>
-          </div>
-          <form onSubmit={handSubmit} className="space-y-4">
-            <label className="input input-bordered flex items-center gap-2">
-              Restaurant Name
-              <input
-                type="text"
-                className="grow p-2 border border-gray-300 rounded"
-                placeholder="Restaurant Name"
-                name="title"
-                onChange={handleChange}
-                value={restaurants.title}
-              />
-            </label>
-            <label className="input input-bordered flex items-center gap-2">
-              Restaurant Type
-              <input
-                type="text"
-                className="grow p-2 border border-gray-300 rounded"
-                placeholder="Restaurant Type"
-                name="type"
-                onChange={handleChange}
-                value={restaurants.type}
-              />
-            </label>
-            <label className="input input-bordered flex items-center gap-2">
-              Restaurant ImageUrl
-              <input
-                type="text"
-                className="grow p-2 border border-gray-300 rounded"
-                placeholder="Restaurant ImageUrl"
-                name="img"
-                onChange={handleChange}
-                value={restaurants.img}
-              />
-            </label>
-            {restaurants.img && (
-              <div className="flex justify-center mt-4">
-                <img
-                  src={restaurants.img}
-                  alt="Restaurant Preview"
-                  className="max-w-full h-auto rounded"
-                  style={{ maxWidth: "500px" }}
-                />
-              </div>
-            )}
-            <button className="btn   btn-outline btn-primary mx-auto block" type="submit">
-              Add Restaurant
-            </button>
-          </form>
-        </div>
-      );
-    };
-    
-    export default Add;
+export default Add

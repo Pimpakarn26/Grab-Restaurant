@@ -1,6 +1,9 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+#card img {
+    object-fit: cover;
+    width: 18rem;
+    height: 12rem;
+}
