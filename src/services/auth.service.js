@@ -1,5 +1,5 @@
 import api from "./api";
-import TokenService from "./token.service";
+import Tokenservice from "./token.service";
 
 const API_URL = "/api/v1/auth";
 
@@ -9,7 +9,7 @@ const register = async (username, email, password) => {
 
 
 const AuthService = {
-    register
-}
+    register,
+};
 
 export default AuthService;

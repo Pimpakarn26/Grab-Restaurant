@@ -9,36 +9,44 @@ const Register = () => {
       email: "",
       password: "",
     });
+
     const navigate = useNavigate();
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setUser({ ...user, [name]: value });
     };
-    const handleSubmit = async () =>{
-        try{
-            const register = await AuthService.register(user.username, user.email, user.password)
-            if(register.status === 200){
-                Swal.fire({
-                  title: "User Registeration",
-                  text: register.data.message,
-                  icon: "success",
-                });
-                setUser({
-                  username: "",
-                  email: "",
-                  password: "",
-                });
-                navigate("/login");
-            }
-        }catch (error){
-            console.log(error);
-            Swal.fire({
-              title: "User Registeration",
-              text: error.reponse.data.message || error.message,
-              icon: "error",
-            });
-        }
-    };
+
+    const handleSubmit = async () => {
+    try {
+      const register = await AuthService.register(
+        user.username,
+        user.email,
+        user.password
+      );
+      if (register.status === 200) {
+        Swal.fire({
+          title: "User Registration",
+          text: register.data.message,
+          icon: "success",
+        });
+        setUser({
+          username: "",
+          email: "",
+          password: "",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "User Registration",
+        text: error.response.data.message || error.message,
+        icon: "error",
+      });
+    }
+  };
+
     const handleCancel = () => {
         setUser({
             username:"",
@@ -46,7 +54,8 @@ const Register = () => {
             password:"",
         })
         navigate("/");
-    }
+    };
+
     return (
       <div className="container mx-auto">
         <div></div>
@@ -56,10 +65,9 @@ const Register = () => {
             <input
               type="text"
               className="grow"
-              placeholder="Restaurant Name"
-              name="username"
+              placeholder="Email"
+              name="email"
               onChange={handleChange}
-              value={restaurant.username}
             />
           </label>
           <label className="input input-bordered flex items-center gap-2">
@@ -67,30 +75,29 @@ const Register = () => {
             <input
               type="text"
               className="grow"
-              placeholder="Restaurant Name"
-              name="email"
+              placeholder="Username"
+              name="username"
               onChange={handleChange}
-              value={restaurant.email}
             />
           </label>
           <label className="input input-bordered flex items-center gap-2">
             img
             <input
-              type="text"
+              type="password"
               className="grow"
-              placeholder="Restaurant Name"
+              placeholder="Password"
               name="password"
               onChange={handleChange}
-              value={restaurant.password}
             />
           </label>
-          <button className="btn btn-primary" onClick={handleChange}>
+          <div className="space-x-2 mt-4 text-center">
+          <button className="btn btn-primary" onClick={handleSubmit}>
             Register
           </button>
-          <button className="btn btn-secondary" onClick={handleChange}>
-            {" "}
-            cancle{" "}
+          <button className="btn btn-secondary" onClick={handleCancel}>
+            cancle
           </button>
+          </div>
         </div>
       </div>
     );
