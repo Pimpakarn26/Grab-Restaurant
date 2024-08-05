@@ -10,7 +10,7 @@ function Home() {
 
   useEffect(() => {
     // เรียกใช้งาน API เมื่อคอมโพเนนต์ Home ถูกโหลด
-    fetch("http://localhost:3000/restaurants")
+    fetch("http://localhost:5000/restaurants")
       .then((res) => res.json())
       .then((response) => {
         // กำหนดค่าให้กับ state restaurants และ filterRestaurant ด้วยข้อมูลที่ได้จาก API
