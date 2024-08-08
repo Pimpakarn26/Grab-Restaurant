@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +8,14 @@ const Login = () => {
     username: "",
     password: "",
   });
-
-  const {login} = useAuthContext();
-
+  const navigate = useNavigate();
+ 
+  const {login, user:loggedInUser} = useAuthContext(); 
+  useEffect(()=>{
+    if(loggedInUser){
+      navigate("/");
+    }
+  }, [loggedInUser])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((user) => ({

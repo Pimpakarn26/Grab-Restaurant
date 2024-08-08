@@ -6,8 +6,7 @@ import UserProfile from "./UserProfile";
 import { useAuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
-const {user, } = useAuthContext();
-  //console.log("user,", user)
+  const { user } = useAuthContext();
 
   return (
     <div className="navbar bg-base-100 mt-5 mb-10 h-30">
@@ -50,7 +49,21 @@ const {user, } = useAuthContext();
           <Header />
         </a>
       </div>
-      <div className="navbar-end">
+
+      <div className="navbar-end space-x-2">
+        {user && (
+          <div>
+            Welcome,
+            <span className="text-blue-500">
+              {user.name}</span>
+              {user.roles.map((role, index) => {
+                return (
+                  <div key={index} className={"badge text-xs badge-accect" }>{role}</div>
+                );
+              })}
+          </div>
+        )}
+
         {user ? (
           <UserProfile />
         ) : (
@@ -62,6 +75,6 @@ const {user, } = useAuthContext();
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

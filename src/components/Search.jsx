@@ -15,7 +15,7 @@ const Search = ({ restaurants, setFilteredRestaurants }) => {
         restaurant.type.toLowerCase().includes(e.target.value.toLowerCase())
       );
     });
-    // console.log(result);
+    //console.log(result);
     setFilteredRestaurants(result);
   };
 

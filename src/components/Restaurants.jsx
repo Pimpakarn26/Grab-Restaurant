@@ -10,8 +10,8 @@ const Restaurants = ({ restaurants }) => {
             <Box
               key={restaurant.id}
               id={restaurant.id}
-              title={restaurant.title}
-              img={restaurant.img}
+              name={restaurant.name}
+              imageUrl={restaurant.imageUrl}
               type={restaurant.type}
             />
           );
@@ -19,5 +19,5 @@ const Restaurants = ({ restaurants }) => {
     </div>
   );
 };
-
+//ไปเช็คที่restaurantmodel
 export default Restaurants;
