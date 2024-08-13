@@ -10,7 +10,7 @@ const Layout = () =>{
             <div className="h-screen">
               <Outlet />  
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </AuthProvider>
     );
 };
