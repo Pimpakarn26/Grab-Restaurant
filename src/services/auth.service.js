@@ -1,5 +1,5 @@
 import api from "./api";
-import Tokenservice from "./token.service";
+import TokenService from "./token.service";
 
 const API_URL = import.meta.env.VITE_AUTH_API;
 
@@ -13,7 +13,7 @@ const login = async (username, password) =>{
         localStorage.setItem("acessToken", JSON.stringify(response.data.accessToken));
         localStorage.setItem(
             "user",
-            JSON.stringify(response)
+            JSON.stringify(response.data)
         );
     }
     return response;
@@ -24,7 +24,7 @@ const login = async (username, password) =>{
 
 
 const AuthService = {
-    register,
+    register, login
 };
 
 export default AuthService;
