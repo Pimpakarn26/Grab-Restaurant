@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [user, setUser] = useState({

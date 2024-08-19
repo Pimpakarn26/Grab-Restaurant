@@ -1,11 +1,12 @@
-//import React from 'react'
 import { useState } from 'react'
+import RestaurantService from '../services/restaurant.service';
+import Swal from "sweetalert2";
 
 const Add = () => {
   const [restaurant, setRestaurant] =useState({
-    title:"",
+    name:"",
     type:"",
-    img:"",
+    imageUrl:"",
   });
   const handleChange =(e) =>{
     const {name, value} = e.target;
@@ -13,19 +14,22 @@ const Add = () => {
   }
   const handSubmit = async () =>{
     try {
-      const response = await fetch("http://localhost:5000/restaurants/",{
-        method:"POST",
-        body: JSON.stringify(restaurant),
-      });
-      if(response.ok){
-        alert("Restaurant added successfully!");
-        setRestaurant({
-          title: "",
-          type: "",
-          img: "",
+      const response = await RestaurantService.insertRestaurant
+      (restaurant)
+      if(response.this.state === 200){
+        Swal.fire({
+          title: "Add Restaurant",
+          text: response.data.message,
+          icon: "success",
         });
+        navigate("/");
       }
     }catch(error){
+      Swal.fire({
+        title: "Add Restaurant",
+        text: error.response.data.message || error.message,
+        icon: "error",
+      });
       console.log(error);
     }
   }
@@ -36,14 +40,14 @@ const Add = () => {
       </div>
       <div className="space-y-2">
         <label className="input input-bordered flex items-center gap-2">
-          Title
+          Name
           <input
             type="text"
             className="grow"
             placeholder="Restaurant Name"
-            name="title"
+            name="name"
             onChange={handleChange}
-            value={restaurant.title}
+            value={restaurant.name}
           />
         </label>
         <label className="input input-bordered flex items-center gap-2">
@@ -58,14 +62,14 @@ const Add = () => {
           />
         </label>
         <label className="input input-bordered flex items-center gap-2">
-          img
+          imageUrl
           <input
             type="text"
             className="grow"
             placeholder="Restaurant Name"
-            name="img"
+            name="imageUrl"
             onChange={handleChange}
-            value={restaurant.img}
+            value={restaurant.imageUrl}
           />
         </label>
         <button className="btn btn-outline btn-error">Add Restaurant</button>

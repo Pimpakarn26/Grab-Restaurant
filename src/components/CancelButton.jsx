@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const CancelButton = () => {
   return (
@@ -6,6 +6,6 @@ const CancelButton = () => {
       <button className="btn btn-error">Cancel</button>
     </div>
   );
-}
+};
 
-export default CancelButton
+export default CancelButton;

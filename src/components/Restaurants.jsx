@@ -1,5 +1,5 @@
 import React from "react";
-import Box from "./Box";
+import Card from "./Card";
 
 const Restaurants = ({ restaurants }) => {
   return (
@@ -7,12 +7,12 @@ const Restaurants = ({ restaurants }) => {
       {restaurants &&
         restaurants.map((restaurant) => {
           return (
-            <Box
+            <Card
               key={restaurant.id}
               id={restaurant.id}
               name={restaurant.name}
-              imageUrl={restaurant.imageUrl}
               type={restaurant.type}
+              imageUrl={restaurant.imageUrl}
             />
           );
         })}
