@@ -4,17 +4,22 @@ import RegisterButton from "./RegisterButton";
 import LoginButton from "./LoginButton";
 import UserProfile from "./UserProfile";
 import { useAuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const authContext = useAuthContext();
-
-  // ตรวจสอบว่า authContext ไม่เป็น null หรือ undefined
-  if (!authContext) {
-    return null;  // หรือคุณสามารถ return ส่วนอื่นๆ ตามที่ต้องการได้
-  }
-
   const { user } = authContext;
-
+  const menus = {
+    ROLES_ADMIN: [
+      { name: "Add restaurant", link: "/add" },
+      { name: "Search", link: "/" },
+    ],
+    ROLES_USER: [{ name: "Search", link: "/" }],
+    ROLES_MODERATOR: [
+      { name: "Add restaurant", link: "/add" },
+      { name: "Search", link: "/" },
+    ],
+  };
   return (
     <div className="navbar bg-base-100 mt-5 mb-10 h-30">
       <div className="navbar-start">
@@ -39,17 +44,28 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/AddMenu">AddMenu</a>
-            </li>
-            <li>
-              <a href="#about">About</a>
-            </li>
+            {user &&
+              menus[user.roles[0]].map((menuItem) => (
+                <li key={menuItem.name}>
+                  <a href={menuItem.link}>{menuItem.name}</a>
+                </li>
+              ))}
+            {/* <li>
+              <a href="/Search"></a>
+            </li> */}
           </ul>
         </div>
+        <a className="btn btn-ghost text-xl">Grab Restaurant</a>
+      </div>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          {user &&
+            menus[user.roles[0]].map((menuItem) => (
+              <li key={menuItem.name}>
+                <a href={menuItem.link}>{menuItem.name}</a>
+              </li>
+            ))}
+        </ul>
       </div>
       <div className="navbar-center h-10">
         <a href="/" className="btn btn-ghost text-xl align-middle h-24">
@@ -61,11 +77,11 @@ const Navbar = () => {
         {user && (
           <div>
             Welcome,
-            <span className="text-blue-500">
-              {user.name}
-            </span>
+            <span className="text-blue-500">{user.name}</span>
             {user.roles.map((role, index) => (
-              <div key={index} className={"badge text-xs badge-accent"}>{role}</div>
+              <div key={index} className={"badge text-xs badge-accent"}>
+                {role}
+              </div>
             ))}
           </div>
         )}

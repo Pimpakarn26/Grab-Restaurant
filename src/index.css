@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #card img {
-    object-fit: cover;
-    width: 18rem;
-    height: 12rem;
+  object-fit: cover;
+  width: 18rem;
+  height: 12rem;
 }

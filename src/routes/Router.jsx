@@ -1,10 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import Add from "../pages/Add.jsx";
 import Home from "../pages/Home.jsx";
+import Add from "../pages/Add.jsx";
 import Edit from "../pages/Edit.jsx";
 import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx";
+import NotAllowed from "../pages/NotAllowed.jsx"
+import AdminPage from "../pages/AdminPage.jsx";
+import UserProfile from "../components/UserProfile.jsx";
+import UserPage from "../pages/UserPage.jsx";
 import Layout from "../components/Layout.jsx";
+import AdminLayout from "../components/AdminLayout.jsx";
+import ModOrAdminPage from "../pages/ModOrAdminPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +29,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/edit/:id",
-    element: <Edit />,
+    element: <ModOrAdminPage>
+      <Edit/>
+      </ModOrAdminPage>,
   },
   {
     path: "/login",
@@ -32,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/notallowed",
+    element: <NotAllowed />,
   },
   {
     path: "/dashboard",
