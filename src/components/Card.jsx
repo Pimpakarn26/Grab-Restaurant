@@ -1,32 +1,49 @@
+import React from "react";
+import Restaurant from "../components/Restaurants";
+import { useAuthContext } from "../context/AuthContext";
 import RestaurantService from "../services/restaurant.service";
-import Swal from "sweetalert2";
 
-const Card = ({ id, name, type, imageUrl }) => {
-  const handleDelete = async (id) => {
-    try {
-      const response = await RestaurantService.deleteRestaurant(id);
-      if (response.status === 200) {
+const Card = ({ id, imageUrl, name, type }) => {
+  const { user } = useAuthContext();
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to delete this restaurant? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (confirmDelete.isConfirmed) {
+      try {
+        const response = await RestaurantService.deleteRestaurant(id);
+        if (response.status === 200) {
+          Swal.fire({
+            title: "Restaurant Deleted",
+            text: response.data.message,
+            icon: "success",
+          }).then(() => {
+            window.location.reload();
+          });
+        }
+      } catch (error) {
         Swal.fire({
-          title: "Delete Restaurant",
-          text: response.data.message,
-          icon: "success",
+          title: "Restaurant Deletion Failed",
+          text: error?.response?.data?.message || error.message,
+          icon: "error",
         });
-        window.location.reload();
       }
-    } catch (error) {
-      Swal.fire({
-        title: "Delete Restaurant",
-        text: error.response.data.message || error.message,
-        icon: "error",
-      });
-      console.log(error);
     }
   };
+
   return (
-    <div
-      className="card card-compact w-72 bg-base-100 shadow-xl h-96"
-      id="card"
-    >
+    <div className="card card-compact w-72 bg-base-100 shadow-xl">
       <figure>
         <img src={imageUrl} alt={name} />
       </figure>
@@ -41,12 +58,13 @@ const Card = ({ id, name, type, imageUrl }) => {
               {user.roles.includes("ROLES_ADMIN") && (
                 <button
                   className="btn btn-error"
-                  onClick={() => handleDelete(id)}
+                  type="submit"
+                  onClick={handleDelete}
                 >
                   Delete
                 </button>
               )}
-              <a href={`/edit${id}`} className="btn btn-warning">
+              <a href={`/edit/${id}`} className="btn btn-primary">
                 Edit
               </a>
             </div>

@@ -1,10 +1,11 @@
 import Lottie from "lottie-react";
 
 const Loading = ({ animetion }) =>{
+
     const defaultOption = {
         loop: true,
         autoplay: true,
-        animetionDate: animetion.defaut,
+        animetionDate: animetion.default,
     };
     const style = {
         height: 300,

@@ -1,7 +1,9 @@
 import React from "react";
 
 const LoginButton = () => {
-  return <button className="btn btn-success">Login</button>;
+  return (
+    <a href='/signin' className="btn btn-outline btn-primary">Login</a>
+  )
 };
 
 export default LoginButton;

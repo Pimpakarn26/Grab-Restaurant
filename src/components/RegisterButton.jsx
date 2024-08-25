@@ -1,7 +1,11 @@
 import React from "react";
 
 const RegisterButton = () => {
-  return <button className="btn btn-active btn-accent">Register</button>;
+  return (
+    <a href="/register" className="btn btn-outline btn-primary">
+    Register
+  </a>
+  );
 };
 
 export default RegisterButton;

@@ -7,19 +7,26 @@ import { useAuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const authContext = useAuthContext();
-  const { user } = authContext;
+  const { user } = useAuthContext();
   const menus = {
     ROLES_ADMIN: [
-      { name: "Add restaurant", link: "/add" },
-      { name: "Search", link: "/" },
+      { name: "HOME", link: "/" },
+      { name: "ADD", link: "/add" },
     ],
-    ROLES_USER: [{ name: "Search", link: "/" }],
     ROLES_MODERATOR: [
-      { name: "Add restaurant", link: "/add" },
-      { name: "Search", link: "/" },
+      { name: "HOME", link: "/" },
+      { name: "ADD", link: "/add" },
     ],
+    ROLES_USER: [{ name: "HOME", link: "/" }],
+    
   };
+
+  const roleAbbreviations = {
+    ROLES_ADMIN: "ADMIN",
+    ROLES_MODERATOR: "MOD",
+    ROLES_USER: "USER",
+  };
+
   return (
     <div className="navbar bg-base-100 mt-5 mb-10 h-30">
       <div className="navbar-start">
@@ -50,12 +57,11 @@ const Navbar = () => {
                   <a href={menuItem.link}>{menuItem.name}</a>
                 </li>
               ))}
-            {/* <li>
-              <a href="/Search"></a>
-            </li> */}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Grab Restaurant</a>
+        <a className="btn btn-ghost text-xl">
+          Grab Restaurant
+          </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -67,22 +73,25 @@ const Navbar = () => {
             ))}
         </ul>
       </div>
-      <div className="navbar-center h-10">
+      {/* <div className="navbar-center h-10">
         <a href="/" className="btn btn-ghost text-xl align-middle h-24">
           <Header />
         </a>
-      </div>
-
+      </div> */}
       <div className="navbar-end space-x-2">
-        {user && (
-          <div>
-            Welcome,
-            <span className="text-blue-500">{user.name}</span>
-            {user.roles.map((role, index) => (
-              <div key={index} className={"badge text-xs badge-accent"}>
-                {role}
-              </div>
-            ))}
+      {user && (
+          <div className="text-center">
+            Welcome : <span className="font-medium">{user.username}</span>
+            <div className="space-x-1 font-normal ">
+              {user.roles.map((role, index) => (
+                <span
+                  key={index}
+                  className="badge badge-primary badge-outline text-xs"
+                >
+                  {roleAbbreviations[role]}
+                </span>
+              ))}
+            </div>
           </div>
         )}
 

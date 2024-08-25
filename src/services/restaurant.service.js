@@ -1,4 +1,5 @@
 import api from "./api";
+
 const RESTO_API = import.meta.env.VITE_RESTO_API;
 
 //get all reataurant
@@ -12,14 +13,14 @@ const getRestaurantById = async (id) => {
     return await api.get(RESTO_API + `/${id}`);
 }
 
-//add a restaurant
-const insertRestaurant = async (id) => {
-     return await api.put(RESTO_API + `/${id}`);
-};
+//add restaurant
+const insertRestaurant = async (restaurant) => {
+    return await api.post(RESTO_API, restaurant);
+  };
 
 //update a  restaurant data
 const editRestaurant = async (id, restaurant) => {
-    return await api.put(RESTO_API + `/${id}`, restaurant) ;
+    return await api.put(RESTO_API + `/${id}`, restaurant);
 }
 
 //Delete a restaurant

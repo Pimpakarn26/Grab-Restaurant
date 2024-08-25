@@ -1,11 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
-const UserPage = ({ Children }) => {
-    const { user } = useAuthContext();
-    if(!user) {
-        return <Navigate t0="/login" />;
-    }
-    return Children;
+const UserPage = ({ children }) => {
+  const { user } = useAuthContext();
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  return children;
 };
- export default UserPage;
+
+export default UserPage;

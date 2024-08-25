@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Search from "./../components/Search";
 import Header from "../components/Header";
-import Restaurants from "./../components/Restaurants";
 import RestaurantService from "../services/restaurant.service";
 import Swal from "sweetalert2";
-// หน้า Home ที่ใช้สำหรับแสดงหน้าหลักของแอปพลิเคชัน
+
 function Home() {
   const [restaurants, setRestaurants] = useState([]); // สร้าง state เพื่อเก็บข้อมูลร้านอาหารทั้งหมด
   const [filterRestaurant, setFilterRestaurant] = useState([]); // สร้าง state เพื่อเก็บข้อมูลร้านอาหารที่ผ่านการกรอง
@@ -37,15 +36,9 @@ function Home() {
   return (
     <>
       <div className="container flex flex-col items-center mx-auto space-y-4">
-        {/* ส่วนของคอมโพเนนต์ Search เพื่อให้ผู้ใช้กรองข้อมูลร้านอาหาร */}
-        <Search
-          restaurants={restaurants}
-          setFilterRestaurant={setFilterRestaurant}
-        />
-        {/* ส่วนแสดงร้านอาหารที่ผ่านการกรอง */}
-        <div className="container flex flex-row flex-wrap items-center justify-center">
-          <Restaurants restaurants={filterRestaurant} />
-        </div>
+      <Header />
+        <Search restaurants={restaurants} setFilteredRestaurants={setFilterRestaurant} />
+        <restaurants restaurants={filterRestaurant} />
       </div>
     </>
   );

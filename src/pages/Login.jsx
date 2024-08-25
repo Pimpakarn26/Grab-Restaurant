@@ -12,11 +12,12 @@ const Login = () => {
   const navigate = useNavigate();
  
   const {login, user:loggedInUser} = useAuthContext(); 
+
   useEffect(()=>{
     if(loggedInUser){
       navigate("/");
     }
-  }, [loggedInUser])
+  }, [loggedInUser, navigate])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((user) => ({
@@ -89,9 +90,9 @@ const Login = () => {
               </svg>
               <input
                 type="password"
-                className="grow"
                 placeholder="Password"
-                name="password"
+                className="grow"
+                name="Password"
                 value={user.password}
                 onChange={handleChange}
               />
